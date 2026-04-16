@@ -1,0 +1,40 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import { services } from "../../data/services";
+---
+
+<Layout title="支援内容" description="Enridgeの支援内容。経営診断・事業再生・M&A仲介・事業承継・PMI支援まで、中小企業のあらゆる経営課題に対応します。">
+  <section class="bg-primary text-white py-16 px-4">
+    <div class="max-w-[1080px] mx-auto text-center">
+      <p class="text-sm tracking-widest text-gray-400 mb-2">SERVICES</p>
+      <h1 class="text-3xl md:text-4xl font-bold">支援内容</h1>
+    </div>
+  </section>
+
+  <section class="py-20 px-4">
+    <div class="max-w-[1080px] mx-auto space-y-12">
+      {services.map((service) => (
+        <a href={`/services/${service.id}/`} class="block bg-surface rounded-xl p-8 shadow-sm border border-border hover:shadow-md transition-shadow">
+          <div class="flex flex-col md:flex-row gap-6 items-start">
+            <span class="text-4xl">{service.icon}</span>
+            <div class="flex-1">
+              <span class="text-sm text-accent font-bold tracking-wider">{service.number}</span>
+              <h2 class="text-xl md:text-2xl font-bold text-primary mt-1 mb-2">{service.title}</h2>
+              <p class="text-text-sub text-sm mb-1">{service.subtitle}</p>
+              <p class="text-text leading-relaxed">{service.description}</p>
+              <div class="flex flex-wrap gap-2 mt-4">
+                {service.concerns.map((concern) => (
+                  <span class="text-xs border border-accent text-accent px-3 py-1 rounded-full">{concern}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <CtaSection />
+</Layout>

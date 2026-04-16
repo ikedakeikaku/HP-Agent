@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaSection from "../components/CtaSection.astro";
+import { company } from "../data/company";
+import { team } from "../data/team";
+---
+
+<Layout title="会社紹介" description={`${company.name}の会社紹介。山梨・東京の中小企業を支援する経営コンサルティング会社です。`}>
+  <section class="bg-primary text-white py-16 px-4">
+    <div class="max-w-[1080px] mx-auto text-center">
+      <p class="text-sm tracking-widest text-gray-400 mb-2">ABOUT</p>
+      <h1 class="text-3xl md:text-4xl font-bold">会社紹介</h1>
+    </div>
+  </section>
+
+  <section class="py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="会社概要" subtitle="COMPANY" />
+      <div class="max-w-3xl mx-auto">
+        <table class="w-full text-sm">
+          <tbody>
+            <tr class="border-b border-border">
+              <th class="py-4 pr-8 text-left text-text-sub font-medium w-40">会社名</th>
+              <td class="py-4 text-text">{company.name}</td>
+            </tr>
+            <tr class="border-b border-border">
+              <th class="py-4 pr-8 text-left text-text-sub font-medium">代表者</th>
+              <td class="py-4 text-text">{company.representative}</td>
+            </tr>
+            <tr class="border-b border-border">
+              <th class="py-4 pr-8 text-left text-text-sub font-medium">設立</th>
+              <td class="py-4 text-text">{company.established}</td>
+            </tr>
+            <tr class="border-b border-border">
+              <th class="py-4 pr-8 text-left text-text-sub font-medium">所在地</th>
+              <td class="py-4 text-text">{company.location}</td>
+            </tr>
+            <tr class="border-b border-border">
+              <th class="py-4 pr-8 text-left text-text-sub font-medium">事業内容</th>
+              <td class="py-4 text-text">{company.services}</td>
+            </tr>
+            <tr class="border-b border-border">
+              <th class="py-4 pr-8 text-left text-text-sub font-medium">メール</th>
+              <td class="py-4 text-text">{company.email}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-card-bg py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="代表メッセージ" subtitle="MESSAGE" />
+      <div class="max-w-3xl mx-auto flex flex-col md:flex-row gap-10 items-center">
+        <div class="w-48 h-48 bg-gray-200 rounded-xl flex items-center justify-center text-gray-400 shrink-0">PHOTO</div>
+        <div>
+          {team.map((member) => (
+            <div>
+              <p class="text-text leading-loose mb-4">{member.bio}</p>
+              <p class="text-primary font-bold">{member.name}</p>
+              <p class="text-text-sub text-sm">{member.role}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- パートナー -->
+  <section class="py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="連携パートナー" subtitle="PARTNERS" />
+      <div class="flex flex-wrap justify-center gap-8">
+        {company.partners.map((partner) => (
+          <div class="bg-surface rounded-xl px-8 py-6 shadow-sm border border-border text-center">
+            <p class="text-text font-bold text-sm">{partner}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</Layout>

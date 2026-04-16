@@ -1,0 +1,57 @@
+---
+import { company } from "../data/company";
+
+const footerLinks = [
+  {
+    title: "サービス",
+    links: [
+      { label: "経営診断・コンサルティング", href: "/services/management-consulting/" },
+      { label: "事業再生・経営改善", href: "/services/business-turnaround/" },
+      { label: "M&A仲介・事業承継支援", href: "/services/ma-succession/" },
+      { label: "PMI・承継後の経営支援", href: "/services/pmi-support/" },
+    ],
+  },
+  {
+    title: "会社情報",
+    links: [
+      { label: "会社紹介", href: "/about/" },
+      { label: "プライバシーポリシー", href: "/privacy/" },
+    ],
+  },
+  {
+    title: "お問い合わせ",
+    links: [
+      { label: "お問い合わせ", href: "/contact/" },
+    ],
+  },
+];
+---
+
+<footer class="bg-primary text-white">
+  <div class="max-w-[1440px] mx-auto px-4 py-16">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10">
+      <div>
+        <p class="font-heading text-xl font-bold mb-4">{company.name}</p>
+        <p class="text-sm text-gray-300 leading-relaxed">
+          {company.location}<br />
+          {company.email}
+        </p>
+      </div>
+      {footerLinks.map((section) => (
+        <div>
+          <p class="font-bold text-sm mb-4">{section.title}</p>
+          <ul class="space-y-2">
+            {section.links.map((link) => (
+              <li>
+                <a href={link.href} class="text-sm text-gray-300 hover:text-accent transition-colors">{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+    <div class="border-t border-gray-700 mt-12 pt-8 text-center">
+      <p class="text-sm text-gray-400">&copy; {new Date().getFullYear()} {company.name} All rights reserved.</p>
+    </div>
+  </div>
+</footer>

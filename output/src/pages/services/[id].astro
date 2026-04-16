@@ -1,0 +1,52 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SectionHeading from "../../components/SectionHeading.astro";
+import CtaSection from "../../components/CtaSection.astro";
+import { services } from "../../data/services";
+import type { GetStaticPaths } from "astro";
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return services.map((service) => ({
+    params: { id: service.id },
+    props: { service },
+  }));
+};
+
+const { service } = Astro.props;
+---
+
+<Layout title={service.title} description={service.description}>
+  <section class="bg-primary text-white py-16 px-4">
+    <div class="max-w-[1080px] mx-auto text-center">
+      <p class="text-sm tracking-widest text-gray-400 mb-2">{service.number}</p>
+      <h1 class="text-3xl md:text-4xl font-bold mb-4">{service.title}</h1>
+      <p class="text-gray-300 text-lg">{service.subtitle}</p>
+    </div>
+  </section>
+
+  <section class="py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <p class="text-lg text-text leading-loose max-w-3xl mx-auto text-center mb-16">{service.description}</p>
+
+      <SectionHeading title="こんなお悩みはありませんか？" subtitle="CONCERNS" />
+      <div class="flex flex-wrap justify-center gap-3 mb-16">
+        {service.concerns.map((concern: string) => (
+          <span class="border-2 border-accent text-accent px-5 py-2 rounded-full font-bold text-sm">{concern}</span>
+        ))}
+      </div>
+
+      <SectionHeading title="サービスの特徴" subtitle="FEATURES" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        {service.features.map((feature: { title: string; description: string }, i: number) => (
+          <div class="bg-surface rounded-xl p-8 shadow-sm border border-border text-center">
+            <span class="text-accent font-heading text-3xl font-bold block mb-4">0{i + 1}</span>
+            <h3 class="text-lg font-bold text-primary mb-3">{feature.title}</h3>
+            <p class="text-text-sub text-sm leading-loose">{feature.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</Layout>

@@ -1,0 +1,40 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { company } from "../data/company";
+---
+
+<Layout title="プライバシーポリシー" description={`${company.name}のプライバシーポリシー。`}>
+  <section class="bg-primary text-white py-16 px-4">
+    <div class="max-w-[1080px] mx-auto text-center">
+      <h1 class="text-3xl md:text-4xl font-bold">プライバシーポリシー</h1>
+    </div>
+  </section>
+
+  <section class="py-20 px-4">
+    <div class="max-w-[800px] mx-auto prose prose-sm">
+      <p class="text-text leading-relaxed mb-8">
+        {company.name}（以下「当社」）は、お客様の個人情報の保護に努めています。
+      </p>
+
+      <h2 class="text-xl font-bold text-primary mt-12 mb-4">1. 個人情報の取得</h2>
+      <p class="text-text leading-relaxed mb-6">
+        当社は、お問い合わせフォーム等を通じて、お名前、メールアドレス、電話番号等の個人情報を取得することがあります。
+      </p>
+
+      <h2 class="text-xl font-bold text-primary mt-12 mb-4">2. 個人情報の利用目的</h2>
+      <p class="text-text leading-relaxed mb-6">
+        取得した個人情報は、お問い合わせへの回答、サービスのご案内等の目的で利用いたします。
+      </p>
+
+      <h2 class="text-xl font-bold text-primary mt-12 mb-4">3. 個人情報の第三者提供</h2>
+      <p class="text-text leading-relaxed mb-6">
+        当社は、法令に基づく場合を除き、お客様の同意なく個人情報を第三者に提供することはありません。
+      </p>
+
+      <h2 class="text-xl font-bold text-primary mt-12 mb-4">4. お問い合わせ</h2>
+      <p class="text-text leading-relaxed">
+        個人情報に関するお問い合わせは、{company.email} までご連絡ください。
+      </p>
+    </div>
+  </section>
+</Layout>

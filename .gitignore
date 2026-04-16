@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.wrangler/
+.astro/
+*.sqlite
+*.sqlite-shm
+*.sqlite-wal
+package-lock.json

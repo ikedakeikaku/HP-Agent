@@ -1,0 +1,242 @@
+---
+import Layout from "../layouts/Layout.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import CtaSection from "../components/CtaSection.astro";
+import { services } from "../data/services";
+import { reasons } from "../data/reasons";
+import { cases } from "../data/cases";
+import { team } from "../data/team";
+import { faq } from "../data/faq";
+import { company } from "../data/company";
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faq.map((item) => ({
+    "@type": "Question",
+    name: item.question,
+    acceptedAnswer: { "@type": "Answer", text: item.answer },
+  })),
+};
+
+const businessSchema = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: company.name,
+  url: "https://enridge.co.jp",
+  email: company.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "川田町517",
+    addressLocality: "甲府市",
+    addressRegion: "山梨県",
+    postalCode: "400-0811",
+    addressCountry: "JP",
+  },
+  areaServed: [
+    { "@type": "State", name: "山梨県" },
+    { "@type": "City", name: "東京都" },
+  ],
+  description: company.description,
+  priceRange: "初回相談無料",
+  knowsAbout: ["M&A仲介", "事業承継", "経営診断", "事業再生", "中小企業コンサルティング"],
+};
+---
+
+<Layout>
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(businessSchema)} />
+
+  <!-- Hero -->
+  <section class="bg-primary text-white py-20 md:py-28 px-4">
+    <div class="max-w-[1080px] mx-auto flex flex-col md:flex-row items-center gap-10 md:gap-16">
+      <div class="flex-1">
+        <p class="text-sm md:text-base tracking-widest text-gray-400 mb-4 uppercase">事業承継・M&A・経営改善・補助金</p>
+        <h1 class="text-3xl md:text-5xl font-bold leading-tight mb-6">
+          経営の「次の一手」、<br />一緒に考えます。
+        </h1>
+        <p class="text-base md:text-lg text-gray-300 mb-8 max-w-xl leading-loose">
+          後継者がいない。売上が落ちてきた。会社をもっと伸ばしたい。<br class="hidden md:inline" />
+          中小企業診断士が、初回相談から実行まで伴走します。
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+          <a href="/contact/" class="inline-block bg-accent text-white font-bold py-4 px-8 rounded-lg text-center text-lg hover:bg-accent-hover transition-colors shadow-lg shadow-accent/20">
+            まずは無料で相談する
+          </a>
+          <a href="/services/" class="inline-block border-2 border-white/40 text-white font-bold py-4 px-8 rounded-lg text-center hover:bg-white/10 transition-colors">
+            支援内容を見る
+          </a>
+        </div>
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-gray-400">
+          <span class="flex items-center gap-1.5"><span class="text-accent">&#10003;</span> 初回60分無料</span>
+          <span class="flex items-center gap-1.5"><span class="text-accent">&#10003;</span> 山梨・東京対応</span>
+          <span class="flex items-center gap-1.5"><span class="text-accent">&#10003;</span> オンライン相談可</span>
+        </div>
+      </div>
+      <div class="w-full md:w-[420px] shrink-0">
+        <div class="bg-gray-600 rounded-xl w-full aspect-[3/2] flex items-center justify-center text-gray-400 text-lg shadow-2xl">PHOTO</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 数字で見るEnridge -->
+  <section class="bg-surface border-b border-border py-10 px-4">
+    <div class="max-w-[1080px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+      <div>
+        <p class="text-3xl md:text-4xl font-bold text-accent font-heading">60<span class="text-lg">分</span></p>
+        <p class="text-text-sub text-sm mt-1">初回相談無料</p>
+      </div>
+      <div>
+        <p class="text-3xl md:text-4xl font-bold text-accent font-heading">100<span class="text-lg">%</span></p>
+        <p class="text-text-sub text-sm mt-1">診断士が直接対応</p>
+      </div>
+      <div>
+        <p class="text-3xl md:text-4xl font-bold text-accent font-heading">2<span class="text-lg">拠点</span></p>
+        <p class="text-text-sub text-sm mt-1">山梨・東京</p>
+      </div>
+      <div>
+        <p class="text-3xl md:text-4xl font-bold text-accent font-heading">4<span class="text-lg">領域</span></p>
+        <p class="text-text-sub text-sm mt-1">経営課題をカバー</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- サービス概要 -->
+  <section class="py-20 px-4" id="services">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="経営のあらゆる課題に対応します" subtitle="SERVICES" />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+        {services.map((service) => (
+          <a href={`/services/${service.id}/`} class="block bg-surface rounded-xl p-8 shadow-sm border border-border hover:shadow-lg hover:border-accent/30 transition-all group">
+            <div class="flex items-start gap-4">
+              <span class="text-3xl shrink-0">{service.icon}</span>
+              <div>
+                <span class="text-xs text-accent font-bold tracking-wider">{service.number}</span>
+                <h3 class="font-bold text-primary mt-1 mb-2 group-hover:text-accent transition-colors">{service.title}</h3>
+                <p class="text-text-sub text-sm leading-loose mb-3">{service.description}</p>
+                <span class="text-accent font-bold text-sm">詳しく見る →</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- こんなお悩みありませんか？ -->
+  <section class="bg-primary text-white py-16 px-4">
+    <div class="max-w-[1080px] mx-auto text-center">
+      <h2 class="text-2xl md:text-3xl font-bold mb-8">こんなお悩みありませんか？</h2>
+      <div class="flex flex-wrap justify-center gap-3 max-w-3xl mx-auto">
+        {services.flatMap(s => s.concerns).map((concern) => (
+          <span class="border border-white/30 text-white/90 px-5 py-2.5 rounded-full text-sm">{concern}</span>
+        ))}
+      </div>
+      <p class="text-gray-300 mt-8 text-lg">一つでも当てはまるなら、まずはお話しください。</p>
+      <a href="/contact/" class="inline-block bg-accent text-white font-bold py-3 px-8 rounded-lg mt-6 hover:bg-accent-hover transition-colors">
+        無料相談に申し込む
+      </a>
+    </div>
+  </section>
+
+  <!-- 選ばれる理由 -->
+  <section class="py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="Enridgeが選ばれる理由" subtitle="WHY ENRIDGE" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
+        {reasons.map((reason) => (
+          <div class="bg-surface rounded-xl p-8 shadow-sm border border-border">
+            <span class="text-accent font-heading text-5xl font-bold block mb-4">{reason.number}</span>
+            <h3 class="text-lg font-bold text-primary mb-3">{reason.title}</h3>
+            <p class="text-text-sub text-sm leading-loose">{reason.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 支援の流れ -->
+  <section class="bg-card-bg py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="ご相談から支援開始までの流れ" subtitle="FLOW" />
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {[
+          { step: "01", title: "無料相談", desc: "まずは60分、現状をお聞かせください。電話・メール・オンラインいずれも可能です。" },
+          { step: "02", title: "課題の整理", desc: "ヒアリング内容をもとに、課題の全体像と優先順位を整理してお伝えします。" },
+          { step: "03", title: "ご提案", desc: "支援内容・期間・費用のお見積りをご提示。納得いただいてから開始します。" },
+          { step: "04", title: "支援開始", desc: "計画に沿って実行を進めます。定期面談で進捗を共有しながら伴走します。" },
+        ].map((item) => (
+          <div class="relative">
+            <div class="bg-surface rounded-xl p-6 shadow-sm border border-border h-full">
+              <span class="text-accent font-heading text-2xl font-bold block mb-2">{item.step}</span>
+              <h3 class="font-bold text-primary mb-2">{item.title}</h3>
+              <p class="text-text-sub text-sm leading-loose">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 実績 -->
+  <section class="py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="支援実績" subtitle="CASES" />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+        {cases.map((c) => (
+          <div class="bg-surface rounded-xl p-8 shadow-sm border border-border">
+            <span class="inline-block text-xs font-bold text-white bg-accent px-3 py-1 rounded-full tracking-wider mb-4">{c.industry}</span>
+            <h3 class="text-lg font-bold text-primary mb-3">{c.title}</h3>
+            <p class="text-text-sub text-sm leading-loose">{c.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- チーム -->
+  <section class="bg-card-bg py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="担当する専門家" subtitle="TEAM" />
+      <div class="max-w-3xl mx-auto">
+        {team.map((member) => (
+          <div class="bg-surface rounded-xl shadow-sm border border-border overflow-hidden">
+            <div class="flex flex-col md:flex-row">
+              <div class="md:w-64 bg-gray-200 flex items-center justify-center text-gray-400 py-12 md:py-0 shrink-0">PHOTO</div>
+              <div class="p-8 flex-1">
+                <h3 class="text-2xl font-bold text-primary mb-1">{member.name}</h3>
+                <p class="text-accent text-sm font-bold mb-4">{member.role}</p>
+                <p class="text-text-sub text-sm leading-loose mb-4">{member.bio}</p>
+                <div class="flex flex-wrap gap-2">
+                  {member.qualifications.map((q) => (
+                    <span class="text-xs bg-accent/10 text-accent font-bold px-3 py-1 rounded-full">{q}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="py-20 px-4">
+    <div class="max-w-[1080px] mx-auto">
+      <SectionHeading title="よくあるご質問" subtitle="FAQ" />
+      <div class="max-w-3xl mx-auto space-y-4">
+        {faq.map((item) => (
+          <details class="bg-surface rounded-xl border border-border group">
+            <summary class="px-6 py-5 cursor-pointer font-bold text-primary flex justify-between items-center list-none [&::-webkit-details-marker]:hidden">
+              <span>{item.question}</span>
+              <span class="text-accent transition-transform group-open:rotate-45 text-xl shrink-0 ml-4">+</span>
+            </summary>
+            <div class="px-6 pb-6 text-text-sub leading-loose border-t border-border pt-4">{item.answer}</div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaSection />
+</Layout>
