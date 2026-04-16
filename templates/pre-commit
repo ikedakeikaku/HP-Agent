@@ -1,0 +1,41 @@
+#!/bin/sh
+# HP Agent — 自動品質ゲート（pre-commit hook）
+# 生成サイトに設置され、コミット前に品質チェックを実行する
+
+echo "🔍 Quality Gate: Running pre-commit checks..."
+
+# 1. ビルドチェック
+echo "  [1/3] Building..."
+npm run build --silent 2>/dev/null
+if [ $? -ne 0 ]; then
+  echo "  ❌ Build failed. Fix errors before committing."
+  exit 1
+fi
+echo "  ✅ Build passed"
+
+# 2. 型チェック
+echo "  [2/3] Type checking..."
+npx astro check --minimumSeverity error 2>/dev/null
+if [ $? -ne 0 ]; then
+  echo "  ❌ Type errors found. Fix before committing."
+  exit 1
+fi
+echo "  ✅ Type check passed"
+
+# 3. HTML構造チェック（基本的なセマンティクス）
+echo "  [3/3] Checking HTML structure..."
+INDEX_HTML="dist/client/index.html"
+if [ -f "$INDEX_HTML" ]; then
+  # h1 存在チェック
+  if ! grep -q "<h1" "$INDEX_HTML"; then
+    echo "  ⚠️  Warning: No <h1> found in index.html"
+  fi
+  # main 存在チェック
+  if ! grep -q "<main" "$INDEX_HTML"; then
+    echo "  ⚠️  Warning: No <main> found in index.html"
+  fi
+fi
+echo "  ✅ Structure check passed"
+
+echo "✅ All quality gates passed!"
+exit 0
