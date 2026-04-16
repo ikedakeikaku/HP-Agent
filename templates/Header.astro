@@ -1,0 +1,79 @@
+---
+// ★ 生成時にnavItemsを会社のページ構成に合わせて書き換える
+const navItems = [
+  { label: "サービス", href: "/services/" },
+  { label: "会社紹介", href: "/about/" },
+];
+
+const ctaText = "お問い合わせ";
+const ctaHref = "/contact/";
+---
+
+<header class="bg-surface border-b border-border sticky top-0 z-50">
+  <div class="max-w-[1440px] mx-auto px-4 flex items-center justify-between h-20 md:h-24">
+    <a href="/" class="block font-heading text-2xl font-bold text-primary">
+      <!-- ★ ロゴ画像がある場合は<img>に置き換え -->
+      {{COMPANY_NAME}}
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-8">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-sm font-medium text-text hover:text-accent transition-colors">
+          {item.label}
+        </a>
+      ))}
+      <a
+        href={ctaHref}
+        class="bg-accent text-white text-sm font-bold py-3 px-8 rounded-lg hover:bg-accent-hover transition-colors"
+      >
+        {ctaText}
+      </a>
+    </nav>
+
+    <!-- Mobile menu button -->
+    <button
+      id="mobile-menu-btn"
+      class="md:hidden p-2 text-primary"
+      aria-label="メニューを開く"
+      aria-expanded="false"
+    >
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path id="menu-icon" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden border-t border-border bg-surface">
+    <nav class="px-4 py-4 flex flex-col gap-3">
+      {navItems.map((item) => (
+        <a href={item.href} class="text-base font-medium text-text py-3 hover:text-accent transition-colors">
+          {item.label}
+        </a>
+      ))}
+      <a
+        href={ctaHref}
+        class="bg-accent text-white text-center font-bold py-3 px-6 rounded-lg hover:bg-accent-hover transition-colors mt-2"
+      >
+        {ctaText}
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('menu-icon');
+  if (btn && menu && icon) {
+    btn.addEventListener('click', () => {
+      const open = menu.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!open));
+      icon.setAttribute('d', open
+        ? 'M4 6h16M4 12h16M4 18h16'
+        : 'M6 18L18 6M6 6l12 12'
+      );
+    });
+  }
+</script>
