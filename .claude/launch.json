@@ -7,6 +7,13 @@
       "runtimeArgs": ["run", "dev"],
       "port": 4321,
       "cwd": "output"
+    },
+    {
+      "name": "ys-dev",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["run", "dev"],
+      "port": 4321,
+      "cwd": "output-ys"
     }
   ]
 }
